@@ -11,26 +11,26 @@ pipeline {
            
        stage('Code-Review') {
             steps {
-                sh 'pmd:pmd'
+                sh 'mvn pmd:pmd'
             }
             
            }     
            
       stage('test') {
             steps {
-                sh 'test'
+                sh 'mvn test'
             }
             
            }          
        stage('Check') {
             steps {
-                sh 'cobertura:cobertura'
+                sh 'mvn cobertura:cobertura'
             }
             
            }               
       stage('Package') {
             steps {
-                sh 'package'
+                sh 'mvn package'
             }
             
            }          
