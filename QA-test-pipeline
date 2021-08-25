@@ -1,14 +1,40 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Compile') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+           git "https://github.com/AkashHadge/addressbook"
+                sh 'mvn compile'
             }
+            
+           }
+           
+       stage('Code-Review') {
+            steps {
+                sh 'pmd:pmd'
+            }
+            
+           }     
+           
+      stage('test') {
+            steps {
+                sh 'test'
+            }
+            
+           }          
+       stage('Check') {
+            steps {
+                sh 'cobertura:cobertura'
+            }
+            
+           }               
+      stage('Package') {
+            steps {
+                sh 'package'
+            }
+            
+           }          
+           
+                   
         }
-    }
-}
+      } 
